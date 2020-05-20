@@ -1,0 +1,23 @@
+apiVersion: example.com.my.domain/v1alpha1
+kind: BackupJob
+metadata:
+  name: backupjob-sample
+spec:
+  # Add fields here
+  schedule: "*/1 * * * *"
+  startingDeadlineSeconds: 60
+  key: abcd
+  secret: mysecret
+  path: /tmp
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure

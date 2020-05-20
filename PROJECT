@@ -1,0 +1,7 @@
+domain: my.domain
+repo: github.com/hemanrnjn/backup-crd
+resources:
+- group: example.com
+  kind: BackupJob
+  version: v1alpha1
+version: "2"
