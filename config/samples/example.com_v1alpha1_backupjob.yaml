@@ -14,10 +14,8 @@ spec:
       template:
         spec:
           containers:
-          - name: hello
-            image: busybox
+          - name: go-client
+            image: hemanrnjn/go-k8s-client
             args:
-            - /bin/sh
-            - -c
-            - date; echo Hello from the Kubernetes cluster
+            - /main
           restartPolicy: OnFailure

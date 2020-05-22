@@ -24,7 +24,6 @@ import (
 	"github.com/go-logr/logr"
 	"github.com/robfig/cron"
 	kbatch "k8s.io/api/batch/v1"
-	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -62,12 +61,6 @@ func (r *BackupJobReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		// requeue (we'll need to wait for a new notification), and we can get them
 		// on deleted requests.
 		return ctrl.Result{}, client.IgnoreNotFound(err)
-	}
-
-	var secret corev1.Secret
-	if err := r.List(ctx, &secret, client.InNamespace(req.Namespace), client.MatchingFields{jobOwnerKey: req.Name}); err != nil {
-		log.Error(err, "unable to list child Jobs")
-		return ctrl.Result{}, err
 	}
 
 	var childJobs kbatch.JobList
