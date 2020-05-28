@@ -16,6 +16,9 @@ spec:
           containers:
           - name: go-client
             image: hemanrnjn/go-k8s-client
-            args:
-            - /main
+            command: ["/bin/sh"]
+            args: ["-c","./dumpDb.sh && ls -lh && ./main"]
           restartPolicy: OnFailure
+          envFrom:
+            - configMapRef:
+                name: db-config
